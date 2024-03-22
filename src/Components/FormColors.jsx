@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useForm } from "react-hook-form"
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import FormImage from "./FormImage";
@@ -6,10 +7,25 @@ import ListColors from "./ListColors";
 
 const FormColors = () => {
 
-  const [color, setColor] = useState(storedColors);
+  const [color, setColor] = useState([]);
+  const [selectedColor, setSelectedColor] = useState("#563d7c"); 
 
 
+  console.log(color.colorHEX)
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
+
+  const onSubmit = (data) => setColor(data)
+
+  const handleColorChange = (event) => {
+    setSelectedColor(event.target.value);
+  };
+
+  console.log(color)
 
   return (
     <>
@@ -18,7 +34,7 @@ const FormColors = () => {
           <h2 className=" text-2xl font-semibold">Administrar colores</h2>
 
           <Form
-            onSubmit
+            onSubmit={handleSubmit(onSubmit)}
             className="flex gap-5 items-center w-[100%] justify-evenly"
           >
             <Form.Group className="mb-3 flex flex-col">
@@ -34,6 +50,8 @@ const FormColors = () => {
                 defaultValue="#563d7c"
                 title="Choose your color"
                 className="h-[100px] w-[100px]"
+                {...register("colorHEX", {required: true})}
+                onChange={handleColorChange} // Agregar el manejador de cambio de color
 
               />
             </Form.Group>
@@ -42,6 +60,8 @@ const FormColors = () => {
                 type="text"
                 className="w-[30vw] p-3 rounded-md"
                 placeholder="Ingrese el color en ingles"
+                {...register("colorName", {required: true})}
+                value={selectedColor}
               />
             </Form.Group>
 
@@ -55,7 +75,7 @@ const FormColors = () => {
       </section>
 
       <div>
-        <ListColors colors={color} handleDelete={handleDelete} />
+        <ListColors colors={color} />
       </div>
     </>
   );
