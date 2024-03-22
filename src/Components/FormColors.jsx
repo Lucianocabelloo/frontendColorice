@@ -5,9 +5,8 @@ import FormImage from "./FormImage";
 import ListColors from "./ListColors";
 
 const FormColors = () => {
-  const storedColors = JSON.parse(localStorage.getItem("Colours")) || [];
 
-  const [color, setColor] = useState(storedColors);
+  const [color, setColor] = useState([]);
   const [change, setChange] = useState("");
 
   const handleChange = (e) => {
@@ -28,15 +27,9 @@ const FormColors = () => {
     setChange(target);
   };
 
-  const handleDelete = (index) => {
-    const updatedColors = [...color];
-    updatedColors.splice(index, 1);
-    setColor(updatedColors);
-  };
 
-  useEffect(() => {
-    localStorage.setItem("Colours", JSON.stringify(color));
-  }, [color]);
+
+
 
   return (
     <>
@@ -84,7 +77,7 @@ const FormColors = () => {
       </section>
 
       <div>
-        <ListColors colors={color} handleDelete={handleDelete} />
+        <ListColors colors={color} />
       </div>
     </>
   );
