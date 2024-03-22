@@ -11,21 +11,33 @@ const FormColors = () => {
   const [selectedColor, setSelectedColor] = useState("#563d7c"); 
 
 
-  console.log(color.colorHEX)
 
+  const [change, setChange] = useState("");
+  
+    const onSubmit = (data) => handleAddColor(data)
+
+const handleAddColor = (data, event) => {
+    event.preventDefault();
+    setColor(data);
+    setChange("");
+  };
+
+  const handleColorPicker = (e) => {
+    const target = e.target.value;
+    setChange(target);
+  };
+
+  
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm()
 
-  const onSubmit = (data) => setColor(data)
 
-  const handleColorChange = (event) => {
-    setSelectedColor(event.target.value);
-  };
 
   console.log(color)
+  console.log(change)
 
   return (
     <>
@@ -51,7 +63,7 @@ const FormColors = () => {
                 title="Choose your color"
                 className="h-[100px] w-[100px]"
                 {...register("colorHEX", {required: true})}
-                onChange={handleColorChange} // Agregar el manejador de cambio de color
+                onChange={handleColorPicker} // Agregar el manejador de cambio de color
 
               />
             </Form.Group>
@@ -61,7 +73,7 @@ const FormColors = () => {
                 className="w-[30vw] p-3 rounded-md"
                 placeholder="Ingrese el color en ingles"
                 {...register("colorName", {required: true})}
-                value={selectedColor}
+                value={change}
               />
             </Form.Group>
 
