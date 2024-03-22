@@ -1,43 +1,35 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form"
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import FormImage from "./FormImage";
 import ListColors from "./ListColors";
 
 const FormColors = () => {
-
   const [color, setColor] = useState([]);
-  const [selectedColor, setSelectedColor] = useState("#563d7c"); 
-
-
-
   const [change, setChange] = useState("");
-  
-    const onSubmit = (data) => handleAddColor(data)
+  const [error, setError] = useState("");
 
-const handleAddColor = (data, event) => {
+  const handleChange = (e) => {
+    const target = e.target.value;
+    const targetToLowerCase = target.toLowerCase();
+    setChange(targetToLowerCase);
+  };
+
+  const handleAddColor = (event) => {
     event.preventDefault();
-    setColor(data);
+    if (!change.trim()) {
+      setError("El color en inglés es requerido");
+      return;
+    }
+    setColor([...color, change]);
     setChange("");
+    setError("");
   };
 
   const handleColorPicker = (e) => {
     const target = e.target.value;
     setChange(target);
   };
-
-  
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm()
-
-
-
-  console.log(color)
-  console.log(change)
 
   return (
     <>
@@ -46,7 +38,7 @@ const handleAddColor = (data, event) => {
           <h2 className=" text-2xl font-semibold">Administrar colores</h2>
 
           <Form
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={handleAddColor}
             className="flex gap-5 items-center w-[100%] justify-evenly"
           >
             <Form.Group className="mb-3 flex flex-col">
@@ -62,19 +54,18 @@ const handleAddColor = (data, event) => {
                 defaultValue="#563d7c"
                 title="Choose your color"
                 className="h-[100px] w-[100px]"
-                {...register("colorHEX", {required: true})}
-                onChange={handleColorPicker} // Agregar el manejador de cambio de color
-
+                onChange={handleColorPicker}
               />
             </Form.Group>
             <Form.Group className="flex gap-5">
               <Form.Control
+                onChange={handleChange}
+                value={change}
                 type="text"
                 className="w-[30vw] p-3 rounded-md"
                 placeholder="Ingrese el color en ingles"
-                {...register("colorName", {required: true})}
-                value={change}
               />
+              {error && <span>{error}</span>}
             </Form.Group>
 
             <Button className=" bg-orange-600 p-3 rounded-md" type="submit">
