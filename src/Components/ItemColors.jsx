@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import Button from "react-bootstrap/esm/Button";
 
-const ItemColors = ({ color, handleDelete, index }) => {
+const ItemColors = () => {
 
   const AdminColor = color;
   const colorStyle = {
@@ -9,7 +9,6 @@ const ItemColors = ({ color, handleDelete, index }) => {
     height: "150px",
     width: "100%",
   };
-  console.log(colorStyle)
 
 
 
