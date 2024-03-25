@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import FormImage from "./FormImage";
@@ -22,15 +22,19 @@ const FormColors = () => {
     const respuesta = await crearColorAPI(colorData)
     if (respuesta.status === 201) {
       console.info(`El color ha sido creado con exito`)
-      obtenerTareas()
+      obtenerColores()
       reset()
     } else {
       console.error("Ha ocurrido un error")
     }
   };
 
+  useEffect(() => {
+    obtenerColores()
+  }, [])
+  
 
-  const obtenerTareas = async () =>{
+  const obtenerColores = async () =>{
     const respuesta = await listarColoresAPI()
     if (respuesta.status === 200){
       const data = await respuesta.json()
@@ -96,7 +100,10 @@ const FormColors = () => {
       </section>
 
       <div>
-        <ListColors />
+        <ListColors 
+        colors = {colors}
+        setColors= {setColors}
+        />
       </div>
     </>
   );

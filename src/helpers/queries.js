@@ -51,11 +51,11 @@ export const editarColorAPI= async (colorNuevo, id) =>{
 
 export const eliminarColorAPI = async (id) =>{
     try {
-        const respuesta = await  fetch(`${URI_TAREA}/${id}`,{
-            method: "DELETE",
-        })
-        return respuesta
-    } catch (error) {
-        console.error("Ha habido un error al eliminar la tarea", error)
-    }
+        const respuesta = await fetch(`${URL_API}/${id}`, {
+          method: "DELETE",
+        });
+        return respuesta;
+      } catch (error) {
+        console.log(error);
+      }
 }
