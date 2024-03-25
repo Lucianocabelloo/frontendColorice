@@ -1,10 +1,7 @@
-/* eslint-disable react/prop-types */
 import Button from "react-bootstrap/esm/Button";
 import { eliminarColorAPI, listarColoresAPI } from "../helpers/queries";
 
 const ItemColors = ({ colors, setColors, setEditar, setId, setValue }) => {
-  console.log(colors);
-
   const AdminColor = colors.colorInput;
   const colorStyle = {
     backgroundColor: AdminColor,
@@ -28,10 +25,10 @@ const ItemColors = ({ colors, setColors, setEditar, setId, setValue }) => {
     }
   };
 
-  const editarColor = async () => {
+  const editarColor = () => {
     setEditar(true);
     setId(colors.id);
-    setValue("colors", colors.colorInput);
+    setValue("colorInput", colors.colorInput); // Ajusta el nombre del input si es necesario
   };
 
   return (
