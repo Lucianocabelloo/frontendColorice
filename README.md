@@ -1,4 +1,4 @@
-<h1 align="center"> Colorize 🎨 </h1>
+<h1 align="center"> Colorice 🎨 </h1>
 
 ###
 

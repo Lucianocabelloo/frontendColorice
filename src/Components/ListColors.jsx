@@ -1,11 +1,20 @@
-import ItemColors from './ItemColors';
+import ItemColors from "./ItemColors";
 
-const ListColors = ({ colors, handleDelete }) => {
+const ListColors = ({ colors, setColors, setEditar, setId, setValue }) => {
   return (
-    <div className='w-[100%] h-[100%] bg-red-500 estilo borde'>
-      {colors.map((color, index) => (
-        <ItemColors key={index} color={color} index={index} handleDelete={handleDelete} />
-      ))}
+    <div className="w-[100%] h-[100%] bg-red-500 estilo borde">
+      {colors.map((colors) => {
+        return (
+          <ItemColors
+            key={colors._id}
+            colors={colors}
+            setColors={setColors}
+            setEditar={setEditar}
+            setId={setId}
+            setValue={setValue}
+          />
+        );
+      })}
     </div>
   );
 };
