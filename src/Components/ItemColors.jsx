@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
 import Button from "react-bootstrap/esm/Button";
-import { eliminarColorAPI,listarColoresAPI } from "../helpers/queries";
+import { eliminarColorAPI, listarColoresAPI } from "../helpers/queries";
 
-const ItemColors = ({colors, setColors, setEditar, setId, setValue}) => {
-
-console.log(colors)
+const ItemColors = ({ colors, setColors, setEditar, setId, setValue }) => {
+  console.log(colors);
 
   const AdminColor = colors.colorInput;
   const colorStyle = {
@@ -28,27 +27,23 @@ console.log(colors)
       console.error("No se pudo eliminar el color");
     }
   };
-  
 
   const editarColor = async () => {
-        setEditar(true);
-        setId(tarea._id);
-        setValue("colors", "EDITANDO");
-    };
+    setEditar(true);
+    setId(colors.id);
+    setValue("colors", colors.colorInput);
   };
-
-  
 
   return (
     <>
       <div className="flex flex-col w-[12%] justify-evenly items-center gap-2 border p-3 rounded-md bg-slate-200 m-3">
-        <h2 className=" font-semibold text-lg" >Color: {colors.colorInput}</h2>
-        <div  style={colorStyle}></div>
+        <h2 className="font-semibold text-lg">Color: {colors.colorInput}</h2>
+        <div style={colorStyle}></div>
         <Button onClick={borrarColor}>Eliminar</Button>
         <Button onClick={editarColor}>Editar</Button>
       </div>
     </>
   );
-
+};
 
 export default ItemColors;

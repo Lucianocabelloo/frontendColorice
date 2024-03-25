@@ -3,12 +3,14 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import FormImage from "./FormImage";
 import ListColors from "./ListColors";
-import { useForm } from "react-hook-form";
-import { crearColorAPI, listarColoresAPI } from "../helpers/queries";
+import { set, useForm } from "react-hook-form";
+import { crearColorAPI, editarColorAPI, listarColoresAPI } from "../helpers/queries";
 
 const FormColors = () => {
   const [selectedColor, setSelectedColor] = useState("#563d7c");
   const [colors, setColors] = useState([])
+  const [editar, setEditar] = useState(false)
+  const [id, setId] = useState("")
 
   const {
     register,
@@ -19,13 +21,25 @@ const FormColors = () => {
   } = useForm();
 
   const onSubmit = async (colorData) => {
-    const respuesta = await crearColorAPI(colorData)
-    if (respuesta.status === 201) {
-      console.info(`El color ha sido creado con exito`)
-      obtenerColores()
-      reset()
-    } else {
-      console.error("Ha ocurrido un error")
+    if(editar){
+      const respuesta = await editarColorAPI(colorData, id);
+      if(respuesta.status === 200){
+        setEditar(false)
+        setId("")
+        reset()
+        obtenerColores()
+      } else{
+        console.error("Ocurrio un error al editar el color")
+      }
+    } else{
+      const respuesta = await crearColorAPI(colorData)
+      if (respuesta.status === 201) {
+        console.info(`El color ha sido creado con exito`)
+        obtenerColores()
+        reset()
+      } else {
+        console.error("Ha ocurrido un error")
+      }
     }
   };
 
@@ -103,6 +117,7 @@ const FormColors = () => {
         <ListColors 
         colors = {colors}
         setColors= {setColors}
+        setEditar={setEditar} setId={setId} setValue={setValue}
         />
       </div>
     </>
