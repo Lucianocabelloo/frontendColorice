@@ -5,31 +5,7 @@ import FormImage from "./FormImage";
 import ListColors from "./ListColors";
 
 const FormColors = () => {
-  const [color, setColor] = useState([]);
-  const [change, setChange] = useState("");
-  const [error, setError] = useState("");
 
-  const handleChange = (e) => {
-    const target = e.target.value;
-    const targetToLowerCase = target.toLowerCase();
-    setChange(targetToLowerCase);
-  };
-
-  const handleAddColor = (event) => {
-    event.preventDefault();
-    if (!change.trim()) {
-      setError("El color en inglés es requerido");
-      return;
-    }
-    setColor([...color, change]);
-    setChange("");
-    setError("");
-  };
-
-  const handleColorPicker = (e) => {
-    const target = e.target.value;
-    setChange(target);
-  };
 
   return (
     <>
@@ -78,7 +54,7 @@ const FormColors = () => {
       </section>
 
       <div>
-        <ListColors colors={color} />
+        <ListColors />
       </div>
     </>
   );
