@@ -10,7 +10,7 @@ const ItemColors = ({ colors, setColors, setEditar, setId, setValue }) => {
   };
 
   const borrarColor = async () => {
-    const respuesta = await eliminarColorAPI(colors.id);
+    const respuesta = await eliminarColorAPI(colors._id);
     if (respuesta.status === 200) {
       console.info("Se ha eliminado el color correctamente");
       const obtenerColores = await listarColoresAPI();
@@ -27,7 +27,7 @@ const ItemColors = ({ colors, setColors, setEditar, setId, setValue }) => {
 
   const editarColor = () => {
     setEditar(true);
-    setId(colors.id);
+    setId(colors._id);
     setValue("colorInput", colors.colorInput); // Ajusta el nombre del input si es necesario
   };
 

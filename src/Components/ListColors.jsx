@@ -6,7 +6,7 @@ const ListColors = ({ colors, setColors, setEditar, setId, setValue }) => {
       {colors.map((colors) => {
         return (
           <ItemColors
-            key={colors.id}
+            key={colors._id}
             colors={colors}
             setColors={setColors}
             setEditar={setEditar}
